@@ -1,0 +1,104 @@
+<!doctype html>
+
+<link href="/webapp/templates/static/styles/smart_wizard.css" rel="stylesheet" type="text/css">
+<link href="/webapp/templates/static/styles/bootstrap.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/webapp/templates/static/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/webapp/templates/static/js/jquery.smartWizard.js"></script>
+
+<title>Cloud Image Processor</title>
+<div class="demoHead">   
+  <div>
+    <div style="float:left;">
+      <h1>Image Processing App</h1>
+      <h2 class="StepTitle">A Cloud-based App for Image Processing</h2>
+    </div>
+  
+    <div style="clear:both;"></div>
+  </div>
+</div>
+
+<!-- Smart Wizard -->
+        <h3> PLACEHOLDER </h3> 
+  	<div id="wizard" class="swMain">
+  		<ul>
+  			<li><a href="#step-1">
+                		<span class="stepDesc">
+					Step 1<br />
+                		</span>
+            		</a></li>
+  				
+			<li><a href="#step-2">
+               			<span class="stepDesc">
+                   			Step 2<br />
+                		</span>
+            		</a></li>
+  				
+			<li><a href="#step-3">
+                		<span class="stepDesc">
+                   			Step 3<br />
+                		</span>		                
+             		</a></li>
+  				
+  		</ul>
+  			<div id="step-1">	
+            <h2 class="StepTitle">Step 1: Select Image File </h2>
+
+	<p>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+	{% endwith %}
+	</p>
+</div>
+
+{% if filename %}
+	<div>
+		<img src="{{ url_for('display_image', filename=filename) }}">
+	</div>
+{% endif %}
+<form method="post" action="/" enctype="multipart/form-data">
+	<dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+	</dl>
+
+	<h2 class="StepTitle">Step 2: Select Modification </h2>
+
+	<h3>
+		<table border = '0' width = 90% align="center" display="inline-block">
+		<tr>
+			<td><input type="radio" name="preset" value="gray">&nbsp;Gray</td>
+			<td><input type="radio" name="preset" value="sepia">&nbsp;Sepia</td>
+			<td><input type="radio" name="preset" value="poster">&nbsp;Poster</td>
+		</tr>
+		<tr>
+			<td><img src = '/webapp/templates/static/images/gray.jpg' width='120px' ></td>
+			<td><img src = '/webapp/templates/static/images/sepia.jpg' width='120px' ></td>
+			<td><img src = '/webapp/templates/static/images/poster.jpg' width='120px' ></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="preset" value="blur">&nbsp;Blur</td>
+			<td><input type="radio" name="preset" value="edge">&nbsp;Edge</td>
+			<td><input type="radio" name="preset" value="solar">&nbsp;Solar</td>
+		</tr>
+		<tr>
+			<td><img src = '/webapp/templates/static/images/blur.jpg' width='120px' ></td>
+			<td><img src = '/webapp/templates/static/images/edge.jpg' width='120px' ></td>
+			<td><img src = '/webapp/templates/static/images/solar.jpg' width='120px' ></td>
+		</tr>
+		</table>
+	</h3>
+</form>
+
+<div>
+	<h2 class="StepTitle">Step 3: Submit File </h2>
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+</div>
